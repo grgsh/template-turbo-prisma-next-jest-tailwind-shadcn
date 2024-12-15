@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "@repo/ui",
+  "version": "0.0.0",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./components": "./src/components/index.ts",
+    "./utils": "./src/lib/utils/index.ts",
+    "./lib/utils": "./src/lib/utils/index.ts",
+    "./hooks": "./src/hooks/index.ts",
+    "./styles.css": "./dist/index.css"
+  },
+  "imports": {
+    "#*": "./src/*",
+    "#lib/utils": "./src/lib/utils/index.ts",
+    "#actions": "./src/actions/index.ts",
+    "#components/atoms": "./src/components/atoms/index.ts",
+    "#components/molecules": "./src/components/molecules/index.ts",
+    "#components/organisms": "./src/components/organisms/index.ts"
+  },
+  "prettier": {
+    "tabWidth": 2
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "lint": "eslint src/",
+    "ui:add": "pnpx shadcn@latest add",
+    "postui:add": "node ./scripts/fix-shadcn-imports.mjs",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^18"
+  },
+  "devDependencies": {
+    "@repo/database": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/jest-config": "workspace:*",
+    "@repo/tailwind-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@swc/jest": "^0.2.37",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.17.6",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.18",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "ts-node": "^10.9.2",
+    "typescript": "5.5.4"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "eslint": "^9.14.0",
+    "lucide-react": "^0.459.0",
+    "tailwind-merge": "^2.5.4"
+  }
+}

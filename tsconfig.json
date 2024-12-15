@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "allowJs": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "**/*.mjs",
+    "packages/config-jest/next.jest.config.ts",
+    "packages/config-jest/jest.config.ts"
+  ]
+}

@@ -1,0 +1,50 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+  //    seed     = "ts-node prisma/seed.ts"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  authId    String     @unique // Store the Auth user ID
+  role      UserRole   @default(NORMAL)
+  name      String?
+  bio       String?    @db.LongText
+  phone     String?
+  address   String?
+  files     File[] // Relationship to files
+
+  @@map("users")
+}
+
+enum UserRole {
+  ADMIN
+  NORMAL
+  GUEST
+}
+
+model File {
+  id        String   @id @default(cuid())
+  url       String // URL to the file in your file storage system
+  fileType  FileType // Type of the file (e.g., IMAGE_JPEG, APPLICATION_PDF)
+  userId    String? // Optional: Reference to User if the file is associated with a user
+  user      User?    @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now()) // Timestamp for when the file was uploaded
+
+  @@map("files")
+}
+
+enum FileType {
+  IMAGE_JPEG
+  IMAGE_PNG
+  APPLICATION_PDF
+  APPLICATION_TXT
+  // Add more types as needed
+}
